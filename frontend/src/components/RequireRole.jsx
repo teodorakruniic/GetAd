@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext.jsx';
+﻿import { Navigate } from 'react-router-dom';
+import { useAuth } from '../auth-context.js';
 
 // Zaščita strani na frontendu: neprijavljene preusmeri na prijavo,
 // uporabnikom z napačno vlogo pokaže sporočilo.
@@ -15,3 +15,4 @@ export default function RequireRole({ roles, children }) {
   }
   return children;
 }
+
