@@ -9,3 +9,4 @@ export function timeLeft(deadline) {
   const hours = Math.floor(ms / HOUR) % 24;
   return `${days} d ${hours} h`;
 }
+const intentionalLintError = 123;
