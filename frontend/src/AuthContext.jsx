@@ -1,13 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
+import { AuthContext } from './auth-context.js';
 
 // Skupno stanje prijave, dostopno vsem komponentam prek useAuth()
-const AuthContext = createContext(null);
-
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // prijavljen uporabnik ali null
-  const [loading, setLoading] = useState(true); // ali še preverjamo prijavo
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Ob nalaganju strani vprašamo backend, ali smo že prijavljeni (piškotek)
   useEffect(() => {
     fetch('/api/auth/me')
       .then((res) => (res.ok ? res.json() : null))
@@ -15,15 +14,16 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
-  // Vrne sporočilo o napaki ali null, če je prijava uspela
   async function login(email, password) {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
+
     const data = await res.json();
     if (!res.ok) return data.error;
+
     setUser(data);
     return null;
   }
@@ -33,9 +33,9 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
+  return (
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

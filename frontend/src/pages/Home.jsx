@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext.jsx';
+import { useAuth } from '../auth-context.js';
 import { timeLeft } from '../timeLeft.js';
 import Doodle, { Scribble } from '../components/Doodle.jsx';
 import QuestCover from '../components/QuestCover.jsx';
@@ -70,3 +70,4 @@ export default function Home() {
     </div>
   );
 }
+

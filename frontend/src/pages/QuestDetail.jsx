@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useAuth } from '../AuthContext.jsx';
+import { useAuth } from '../auth-context.js';
 import { statusNames } from '../questStatus.js';
 import { timeLeft } from '../timeLeft.js';
 import SubmissionForm from '../components/SubmissionForm.jsx';
@@ -104,3 +104,4 @@ function CreatorPanel({ quest, onChange }) {
 
   return <SubmissionForm questId={quest.id} onSubmitted={onChange} />;
 }
+

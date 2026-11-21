@@ -18,10 +18,8 @@ export default function QuestForm() {
 
   // Pri urejanju naložimo obstoječi quest v obrazec
   useEffect(() => {
-    if (!id) {
-      setForm(emptyForm);
-      return;
-    }
+    if (!id) return;
+  
     fetch(`/api/quests/${id}`)
       .then((res) => res.json())
       .then((data) => {

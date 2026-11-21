@@ -1,6 +1,6 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../AuthContext.jsx';
+import { useAuth } from '../auth-context.js';
 import { Scribble } from '../components/Doodle.jsx';
 
 // Stran za prijavo (US-01)
@@ -48,3 +48,4 @@ export default function Login() {
     </div>
   );
 }
+

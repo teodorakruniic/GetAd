@@ -1,5 +1,5 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext.jsx';
+﻿import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth-context.js';
 import Doodle, { Scribble } from './Doodle.jsx';
 
 const roleNames = { company: 'podjetje', creator: 'ustvarjalec', admin: 'administrator' };
@@ -60,3 +60,4 @@ export default function Header() {
     </header>
   );
 }
+
