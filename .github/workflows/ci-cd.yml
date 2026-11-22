@@ -143,3 +143,43 @@ jobs:
           name: backend-coverage
           path: backend/coverage/
           if-no-files-found: ignore
+
+        
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    needs: [lint, build, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend-dist
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-build
+          path: backend-dist
+
+      - name: Trigger frontend deployment
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
+        run: |
+          curl --fail --silent --show-error \
+            --retry 3 \
+            --request POST \
+            "$DEPLOY_HOOK"
+
+      - name: Trigger backend deployment
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+        run: |
+          curl --fail --silent --show-error \
+            --retry 3 \
+            --request POST \
+            "$DEPLOY_HOOK"
+
