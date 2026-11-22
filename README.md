@@ -1,4 +1,5 @@
 # GetAd
+[![GetAd CI/CD](https://github.com/teodorakruniic/GetAd/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/teodorakruniic/GetAd/actions/workflows/ci-cd.yml)
 
 **GetAd** je spletna platforma za tekmovanja v AI video oglasih. Podjetja objavijo natečaj (quest) z opisom želenega videa, referenčnim gradivom, nagrado in rokom. Ustvarjalci z AI orodji po lastni izbiri pripravijo video in ga oddajo. Administrator pregleda queste in oddaje, po izteku roka pa podjetje izbere zmagovalca.
 
@@ -112,3 +113,56 @@ Razvoj poteka po strategiji **GitHub Flow**:
 4. Po pregledu se pull request združi, veja se izbriše.
 
 Veja `main` je zaščitena: neposredni push, prisilno prepisovanje zgodovine in brisanje niso dovoljeni.
+
+
+## CI/CD
+
+Projekt uporablja GitHub Actions za avtomatizirano preverjanje kode in uvajanje aplikacije.
+
+### Produkcijsko okolje
+
+- Frontend: https://getad-frontend.onrender.com
+- Backend: https://getad.onrender.com
+- Preverjanje delovanja API-ja: https://getad.onrender.com/api/health
+- Podatkovna baza: PostgreSQL (Neon)
+- Gostovanje: Render
+
+### CI/CD pipeline
+
+Workflow je definiran v `.github/workflows/ci-cd.yml`.
+
+Pipeline se sproži ob vsakem pull requestu v vejo `main` in ob vsakem pushu v `main`.
+
+**Lint**
+- Preveri kakovost kode frontenda in backenda z ESLint.
+
+**Build**
+- Namesti odvisnosti z `npm ci`.
+- Zgradi frontend z Vite.
+- Pripravi backend za objavo.
+- Shrani frontend in backend kot GitHub Actions artefakta.
+
+**Test**
+- Izvede avtomatizirane teste frontenda in backenda.
+- Ustvari poročili o pokritosti kode.
+- Shrani poročili kot GitHub Actions artefakta.
+
+**Deploy**
+- Izvede se samo ob pushu v vejo `main`.
+- Začne se šele po uspešnih opravilih lint, build in test.
+- Uporablja GitHub environment `production`.
+- Prenese pripravljena build artefakta.
+- Prek Render Deploy Hooks sproži objavo frontenda in backenda.
+
+Render trenutno ob objavi ponovno izvede svoje build ukaze, zato prenesena GitHub Actions artefakta še nista neposredno uporabljena za produkcijsko objavo.
+
+### Varnost in nastavitve
+
+Veja `main` je zaščitena z obveznimi preverjanji lint, build in test.
+
+Zaupni podatki za sprožitev objave so shranjeni v GitHub environment secrets:
+- `RENDER_FRONTEND_DEPLOY_HOOK`
+- `RENDER_BACKEND_DEPLOY_HOOK`
+
+Produkcijske nastavitve, kot so `DATABASE_URL`, `JWT_SECRET` in `VITE_API_URL`, so nastavljene v okolju Render.
+
