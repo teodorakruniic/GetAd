@@ -191,10 +191,24 @@ jobs:
           push: true
           tags: ghcr.io/teodorakruniic/getad-frontend:latest
 
+     
       - name: Build and push backend image
         uses: docker/build-push-action@v6
         with:
-          context: ./backend
-          file: ./backend/Dockerfile.deploy
-          push: true
-          tags: ghcr.io/teodorakruniic/getad-backend:latest
+            context: ./backend
+            file: ./backend/Dockerfile.deploy
+            push: true
+            tags: ghcr.io/teodorakruniic/getad-backend:latest
+  
+      
+      - name: Deploy backend to Render
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK"
+    
+      - name: Deploy Docker frontend to Render
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DOCKER_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK"
+    
+  
