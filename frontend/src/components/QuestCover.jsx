@@ -1,4 +1,5 @@
 import Doodle from './Doodle.jsx';
+import { apiUrl } from '../api.js';
 
 // Ilustracije, ki jih pokažemo, ko quest nima referenčne slike
 const defaultDoodles = ['can', 'bike', 'phone', 'mountain'];
@@ -9,7 +10,7 @@ export default function QuestCover({ quest, className = 'h-40' }) {
   if (quest.assets.length > 0) {
     return (
       <img
-        src={`/api/quests/${quest.id}/images/${quest.assets[0].id}`}
+        src={apiUrl(`/api/quests/${quest.id}/images/${quest.assets[0].id}`)}
         alt=""
         className={`w-full object-cover rounded-lg ${className}`}
       />

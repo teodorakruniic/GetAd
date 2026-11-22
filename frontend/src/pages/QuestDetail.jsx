@@ -6,6 +6,7 @@ import { timeLeft } from '../timeLeft.js';
 import SubmissionForm from '../components/SubmissionForm.jsx';
 import MySubmission from '../components/MySubmission.jsx';
 import QuestCover from '../components/QuestCover.jsx';
+import { apiUrl } from '../api.js';
 
 // Stran questa: opis, zahteve, nagrada, rok in slike (US-04, WF-02)
 export default function QuestDetail() {
@@ -76,9 +77,18 @@ export default function QuestDetail() {
               <h2 className="font-hand font-bold text-xl mb-2">Referenčne slike</h2>
               <div className="grid grid-cols-3 gap-2">
                 {quest.assets.map((img) => (
-                  <a key={img.id} href={`/api/quests/${quest.id}/images/${img.id}`} target="_blank">
-                    <img src={`/api/quests/${quest.id}/images/${img.id}`} alt={img.original_name} className="w-full h-28 object-cover rounded-lg" />
-                  </a>
+                  <a
+                  key={img.id}
+                  href={apiUrl(`/api/quests/${quest.id}/images/${img.id}`)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={apiUrl(`/api/quests/${quest.id}/images/${img.id}`)}
+                    alt={img.original_name}
+                    className="w-full h-28 object-cover rounded-lg"
+                  />
+                </a>
                 ))}
               </div>
             </section>

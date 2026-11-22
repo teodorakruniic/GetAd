@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { apiUrl } from '../api.js';
 
 // Admin pregled novih questov (US-03): odobritev ali zavrnitev z razlogom
 export default function AdminQuests() {
@@ -62,7 +63,7 @@ function QuestReviewCard({ quest, onDone }) {
 
         <div className="flex gap-2 mt-2">
           {quest.assets.map((img) => (
-            <img key={img.id} src={`/api/quests/${quest.id}/images/${img.id}`} alt={img.original_name} className="h-20 rounded-lg" />
+            <img key={img.id} src={apiUrl(`/api/quests/${quest.id}/images/${img.id}`)} alt={img.original_name} className="h-20 rounded-lg" />
           ))}
         </div>
       </div>

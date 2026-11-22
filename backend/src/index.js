@@ -6,9 +6,14 @@ import authRoutes from './routes/auth.js';
 import questRoutes from './routes/quests.js';
 import adminRoutes from './routes/admin.js';
 import submissionRoutes from './routes/submissions.js';
+import cors from 'cors';
 import { closeExpiredQuests } from './middleware/closeExpired.js';
 
 const app = express();
+app.use(cors({
+  origin: 'https://getad-frontend.onrender.com',
+  credentials: true,
+}));
 
 app.use(express.json()); // telo zahtevka v JSON obliki
 app.use(cookieParser()); // branje piškotkov (JWT žeton)
