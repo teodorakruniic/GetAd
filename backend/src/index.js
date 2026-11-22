@@ -11,7 +11,10 @@ import { closeExpiredQuests } from './middleware/closeExpired.js';
 
 const app = express();
 app.use(cors({
-  origin: 'https://getad-frontend.onrender.com',
+  origin: [
+    'https://getad-frontend.onrender.com',
+    'https://getad-frontend-docker.onrender.com'
+  ],
   credentials: true,
 }));
 
