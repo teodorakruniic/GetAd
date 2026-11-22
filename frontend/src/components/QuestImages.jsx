@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiUrl } from '../api.js';
 
 const MAX_IMAGES = 3;
 
@@ -49,7 +50,7 @@ export default function QuestImages({ questId, images, setImages }) {
       <div className="grid grid-cols-3 gap-2 mt-3">
         {images.map((img) => (
           <div key={img.id} className="text-center">
-            <img src={`/api/quests/${questId}/images/${img.id}`} alt={img.original_name} className="w-full h-24 object-cover rounded-lg" />
+            <img src={apiUrl(`/api/quests/${questId}/images/${img.id}`)} alt={img.original_name} className="w-full h-24 object-cover rounded-lg" />
             <button type="button" onClick={() => handleDelete(img.id)} className="text-sm text-red-400 hover:underline">
               Odstrani
             </button>

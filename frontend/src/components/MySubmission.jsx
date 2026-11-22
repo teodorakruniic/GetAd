@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { submissionStatusNames } from '../questStatus.js';
+import { apiUrl } from '../api.js';
 
 // Oddaja ustvarjalca na strani questa (US-04): prikaz, urejanje in umik do roka.
 // onChange pokličemo s posodobljeno oddajo.
@@ -76,7 +77,11 @@ export default function MySubmission({ submission, questOpen, onChange }) {
   return (
     <div className="card">
       <h2 className="font-hand font-bold text-xl mb-1">Tvoja oddaja</h2>
-      <video src={`/api/submissions/${submission.id}/video`} controls className="w-full rounded mb-2 bg-black" />
+      <video
+  src={apiUrl(`/api/submissions/${submission.id}/video`)}
+  controls
+  className="w-full rounded mb-2 bg-black"
+/>
       <p className="font-semibold">{submission.title}</p>
       <p className="whitespace-pre-line">{submission.description}</p>
       <p className="text-sm text-muted">AI orodje: {submission.ai_tool}</p>

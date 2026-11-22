@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { statusNames } from '../questStatus.js';
-
+import { apiUrl } from '../api.js';
 // Odobrene oddaje questa in izbor zmagovalca (US-07, WF-04)
 export default function QuestSubmissions() {
   const { id } = useParams();
@@ -54,7 +54,11 @@ export default function QuestSubmissions() {
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {submissions.map((s) => (
           <div key={s.id} className="card !p-0 overflow-hidden">
-            <video src={`/api/submissions/${s.id}/video`} controls className="w-full bg-black" />
+            <video
+  src={apiUrl(`/api/submissions/${s.id}/video`)}
+  controls
+  className="w-full bg-black"
+/>
             <div className="p-3">
               <h2 className="font-bold">{s.title}</h2>
               <p className="text-sm text-muted">{s.creator.display_name} · AI orodje: {s.ai_tool}</p>

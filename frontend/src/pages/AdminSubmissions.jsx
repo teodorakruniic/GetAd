@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { apiUrl } from '../api.js';
 
 // Zavihki na vrhu strani (WF-05): stanje oddaje in ime zavihka
 const tabs = [
@@ -73,7 +74,11 @@ function SubmissionReviewCard({ submission, onDone }) {
 
   return (
     <div className="card grid md:grid-cols-[1fr_2fr_1fr] gap-4">
-      <video src={`/api/submissions/${submission.id}/video`} controls className="w-full rounded bg-black" />
+      <video
+  src={apiUrl(`/api/submissions/${submission.id}/video`)}
+  controls
+  className="w-full rounded bg-black"
+/>
 
       <div>
         <h2 className="font-hand font-bold text-xl">{submission.title}</h2>
